@@ -1,0 +1,13 @@
+<h1>capture from camera or browser</h1>
+<div>
+  <form>
+    <input type="file" id="upload_driver_photo" class="dropify" formControlName="op_profile" [ngClass]="{ 'is-invalid': submitted && p.op_profile.errors}" (change)="onFileChange($event)" />
+    <button  (click)="onCaptureClick()">Capture Image</button>
+</form>
+</div>
+<div >
+        <button  (click)="oncameraClick()">Camera</button>&nbsp;
+        <button  (click)="onBrowserClick()">Browser</button>&nbsp;
+        <button  (click)="onNoClick()">No Thanks</button>&nbsp;
+  <!-- <button  [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+</div>

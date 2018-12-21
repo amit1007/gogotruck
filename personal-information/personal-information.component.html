@@ -1,0 +1,370 @@
+<div class="tab-content">
+	<form #personalForm="ngForm" class="form-body" [formGroup]="personalInfoForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data" method="POST">
+			<!-- <form class="form-body"> -->
+			
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">First Name<sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter First Name" class="form-control form-control-line" id="first_name" formControlName="op_first_name" [ngClass]="{ 'is-invalid': submitted && p.op_first_name.errors}">
+					<div *ngIf="submitted && p.op_first_name.errors" class="invalid-feedback">
+						<div *ngIf="p.op_first_name.errors.required">Firstname is required</div>
+						<div *ngIf="p.op_first_name.errors.pattern">Only letter is allowed</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Last Name<sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Last Name" class="form-control form-control-line" id="last_name" formControlName="op_last_name" [ngClass]="{ 'is-invalid': submitted && p.op_last_name.errors}">
+					<div *ngIf="submitted && p.op_last_name.errors" class="invalid-feedback">
+						<div *ngIf="p.op_last_name.errors.required">Lastname is required</div>
+						<div *ngIf="p.op_last_name.errors.pattern">Only letter is allowed</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Register Mobile No <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Register Mobile No" class="form-control form-control-line" id="mobile_no" formControlName="op_mobile_no" [ngClass]="{ 'is-invalid': submitted && p.op_mobile_no.errors}">
+					<div *ngIf="submitted && p.op_mobile_no.errors" class="invalid-feedback">
+						<div *ngIf="p.op_mobile_no.errors.required">Mobile is required</div>
+						<div *ngIf="p.op_mobile_no.errors.pattern">Mobile number not valid.</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Atlernate Mobile No</label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Alternate Mobile No" class="form-control form-control-line" id="alternet_mobile_no" formControlName="op_alternative_mobile_no" [ngClass]="{ 'is-invalid': submitted && p.op_alternative_mobile_no.errors}">
+					<div *ngIf="submitted && p.op_alternative_mobile_no.errors" class="invalid-feedback">
+						<div *ngIf="p.op_alternative_mobile_no.errors.pattern">Mobile number not valid.</div>
+					</div>
+				</div>
+			</div>
+		</div>
+											
+		<!-- <div class="form-group">
+			<label class="col-md-12">Mobile No</label>
+			<div class="col-md-12">
+				<input type="text" placeholder="Enter Mobile No" class="form-control form-control-line" id="mobile_no" formControlName="op_mobile_no" [ngClass]="{ 'is-invalid': submitted && p.op_mobile_no.errors}">
+				<div *ngIf="submitted && p.op_mobile_no.errors" class="invalid-feedback">
+					<div *ngIf="p.op_mobile_no.errors.required">Mobile is required</div>
+					<div *ngIf="p.op_mobile_no.errors.pattern">Mobile number not valid.</div>
+				</div>
+			</div>
+		</div> -->
+
+		<!-- <div class="form-group m-b-5">
+			<div class="col-md-12">
+				<input type="checkbox" class="check" id="minimal-checkbox-2" formControlName="op_alternative_mobile_checbox" [ngClass]="{ 'is-invalid': submitted && p.op_alternative_mobile_checbox.errors}"  (change)="changeValue($event.target.checked)">
+				<small class="col-md-12">(same as above.)</small>
+			</div>
+		</div> -->
+		
+		<!-- <div class="form-group">
+			<label class="col-md-12">Atlernate Mobile No</label>
+			<div class="col-md-12">
+				<input type="text" placeholder="Enter Alternate Mobile No" class="form-control form-control-line" id="alternet_mobile_no" formControlName="op_alternative_mobile_no" [ngClass]="{ 'is-invalid': submitted && p.op_alternative_mobile_no.errors}">
+				<div *ngIf="submitted && p.op_alternative_mobile_no.errors" class="invalid-feedback">
+					<div *ngIf="p.op_alternative_mobile_no.errors.pattern">Mobile number not valid.</div>
+				</div>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Email <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Email" class="form-control form-control-line" id="email" formControlName="op_email" [ngClass]="{ 'is-invalid': submitted && p.op_email.errors}">
+					<div *ngIf="submitted && p.op_email.errors" class="invalid-feedback">
+						<div *ngIf="p.op_email.errors.required">Email is required</div>
+						<div *ngIf="p.op_email.errors.pattern">Email not valid.</div>
+					</div>
+				</div>
+			</div> 
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Date of Birth</label>
+				<div class="col-md-12">
+					<div class="input-group">
+						<input class="form-control cal" placeholder="yyyy-mm-dd" formControlName="op_dob" ngbDatepicker [footerTemplate]="footerTemplate" #d="ngbDatepicker">
+						<div class="input-group-append">
+							<button class="btn calendar" (click)="d.toggle()" type="button"><i class="icon-calender"></i></button>
+						</div>
+					</div>				
+
+					<ng-template #footerTemplate>
+						<hr class="my-0">
+						<button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Close</button>
+						<button class="btn btn-secondary btn-sm m-2 float-right" (click)="d.close()">Set</button>
+					</ng-template>
+				</div>
+
+				<!-- <div class="form-group">
+					<div class="input-group">
+						<input class="form-control" placeholder="yyyy-mm-dd" name="d2" #c2="ngModel"[(ngModel)]="model2" ngbDatepicker #d2="ngbDatepicker">
+						<div class="input-group-append">
+							<button class="btn btn-outline-secondary calendar" (click)="d2.toggle()" type="button"></button>
+						</div>
+					</div>
+				</div> -->
+
+				<!-- <div class="input-group col-md-10">
+					<input class="form-control" placeholder="yyyy-mm-dd"
+					 formControlName="op_dob" [ngClass]="{ 'is-invalid': submitted && p.op_dob.errors}" ngbDatepicker #d="ngbDatepicker" [ngClass]="{ 'is-invalid': submitted && p.op_dob.errors}">
+					<div class="input-group-append">
+						<button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button">
+							<span class="input-group-text"><i class="icon-calender"></i></span>
+						</button>
+					</div>
+				</div> -->	
+					<div *ngIf="submitted && p.op_dob.errors" class="invalid-feedback">
+						<div *ngIf="p.op_dob.errors.required">Select date of birth</div>
+					</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Gender <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<select class="form-control custom-select" formControlName="op_gender" [ngClass]="{ 'is-invalid': submitted && p.op_gender.errors}">
+						<option [ngValue]="undefined" selected="selected">Select Gender</option>
+						<option [ngValue]="1">Female</option>
+						<option [ngValue]="2">Male</option>
+						<option [ngValue]="3">Other</option>
+					</select>
+					<div *ngIf="submitted && p.op_gender.errors" class="invalid-feedback">
+						<div *ngIf="p.op_gender.errors.required">Select Gender</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Pet Name</label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Your Pet Name" class="form-control form-control-line" id="pet_name" formControlName="op_pet_name" [ngClass]="{ 'is-invalid': submitted && p.op_pet_name.errors}">
+					<!-- <div *ngIf="submitted && p.op_pan_no.errors" class="invalid-feedback">
+					<div *ngIf="p.op_pan_no.errors.required">PAN is required</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Adhar Card No</label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter PAN Card No" class="form-control form-control-line" id="adhar_card_no" formControlName="op_adhar_card_no" [ngClass]="{ 'is-invalid': submitted && p.op_adhar_card_no.errors}">
+					<!-- <div *ngIf="submitted && p.op_adhar_card_no.errors" class="invalid-feedback">
+						<div *ngIf="p.op_adhar_card_no.errors.required">Adhar is required</div>
+					</div> -->
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">PAN Card No</label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter PAN Card No" class="form-control form-control-line" id="pan_card_no" formControlName="op_pan_no" [ngClass]="{ 'is-invalid': submitted && p.op_pan_no.errors}">
+					<!-- <div *ngIf="submitted && p.op_pan_no.errors" class="invalid-feedback">
+						<div *ngIf="p.op_pan_no.errors.required">PAN is required</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Driving Licence No <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Vehicle Base Station / Location" class="form-control form-control-line" formControlName="veh_driving_licence_no" [ngClass]="{ 'is-invalid': submitted && p.veh_driving_licence_no.errors}">
+					<div *ngIf="submitted && p.veh_driving_licence_no.errors" class="invalid-feedback">
+						<div *ngIf="p.veh_driving_licence_no.errors.required">Enter Driving Licence No</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Validity of Driving Licence <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<div class="input-group">
+						<input class="form-control cal" placeholder="yyyy-mm-dd" formControlName="veh_licence_validity" ngbDatepicker [footerTemplate]="footerTemplate" #lv="ngbDatepicker">
+						<div class="input-group-append">
+							<button class="btn calendar" (click)="lv.toggle()" type="button"><i class="icon-calender"></i></button>
+						</div>
+					</div>				
+
+					<ng-template #footerTemplate>
+						<hr class="my-0">
+						<button class="btn btn-secondary btn-sm m-2 float-right" (click)="lv.close()">Close</button>
+						<button class="btn btn-secondary btn-sm m-2 float-right" (click)="lv.close()">Set</button>
+					</ng-template>
+				</div>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-12 f-m">
+				<h4 class="card-title">Address</h4>
+				<hr>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Flat/shop/place <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Flat/shop/place" class="form-control form-control-line" formControlName="op_address_line_1" [ngClass]="{ 'is-invalid': submitted && p.op_address_line_1.errors}">
+					<div *ngIf="submitted && p.op_address_line_1.errors" class="invalid-feedback">
+						<div *ngIf="p.op_address_line_1.errors.required">Address is required</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Street/Area</label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Street/Area" class="form-control form-control-line" formControlName="op_address_line_2" [ngClass]="{ 'is-invalid': submitted && p.op_address_line_2.errors}">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Location</label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Location" class="form-control form-control-line" id="location" formControlName="op_address_line_3" [ngClass]="{ 'is-invalid': submitted && p.op_address_line_3.errors}">
+				</div>
+			</div>
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Pincode <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Pincode" class="form-control form-control-line" id="pincode" formControlName="op_address_pin_code" [ngClass]="{ 'is-invalid': submitted && p.op_address_pin_code.errors}" >
+					<div *ngIf="submitted && p.op_address_pin_code.errors" class="invalid-feedback">
+						<div *ngIf="p.op_address_pin_code.errors.required">Pincode is required</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Landmark</label>
+				<div class="col-md-12">
+					<input type="text" placeholder="Enter Landmark" class="form-control form-control-line" id="landmark" formControlName="op_landmark" [ngClass]="{ 'is-invalid': submitted && p.op_landmark.errors}">
+					<div *ngIf="submitted && p.op_landmark.errors" class="invalid-feedback">
+						<div *ngIf="p.op_landmark.errors.required">Landmark is required</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">City</label>
+				<div class="col-md-12">
+					<select class="form-control custom-select" formControlName="op_address_city" [ngClass]="{ 'is-invalid': submitted && p.op_address_city.errors}" [value]="1">
+						<option [value]="0" selected="selected">Select City</option>
+						<option [value]="1">Pune</option>
+						<option [value]="2">Mumbai</option>
+					</select>
+					<div *ngIf="submitted && p.op_address_city.errors" class="invalid-feedback">
+						<div *ngIf="p.op_address_city.errors.required">Select City</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">					
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">State</label>
+				<div class="col-md-12">
+					<select class="form-control custom-select" formControlName="op_address_state" [ngClass]="{ 'is-invalid': submitted && p.op_address_state.errors}" [value]="27">
+					<option [value]="0" selected="selected">Select State</option>
+					<option [value]="27">Maharashtra</option>
+					<option [value]="10">Goa</option>
+				</select>
+				<div *ngIf="submitted && p.op_address_state.errors" class="invalid-feedback">
+					<div *ngIf="p.op_address_state.errors.required">Select State</div>
+				</div>
+				</div>
+			</div>
+		
+			<div class="form-group col-sm-6">
+				<label class="col-md-12">Operator Type <sup class="sup-e">*</sup></label>
+				<div class="col-md-12">
+					<select class="form-control custom-select" formControlName="op_type" [ngClass]="{'is-invalid': submitted && p.op_type.errors}">
+						<option [ngValue]="undefined" selected="selected">Select Operator</option>
+						<option [ngValue]="1">Individual</option>
+						<option [ngValue]="2">Business</option>
+					</select>
+					<div *ngIf="submitted && p.op_type.errors" class="invalid-feedback">
+						<div *ngIf="p.op_type.errors.required">Select operator type</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-lg-12 col-md-12">
+				<div class="card">
+					<h4 class="card-title">Upload Profile Picture</h4>
+					<hr>
+					<!-- capturing image from the camera-->
+					<div>
+						<webcam [height]="500" [width]="500" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam"
+								[allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+								[videoOptions]="videoOptions"
+								(cameraSwitched)="cameraWasSwitched($event)"
+								(initError)="handleInitError($event)"
+						></webcam>
+						<br/>
+						<!-- <input type="Take a snapshot" id="upload_driver_photo" class="dropify" formControlName="op_profile" 
+						[ngClass]="{ 'is-invalid': submitted && p.op_profile.errors}" 
+						(click)="triggerSnapshot();" />&nbsp;
+						<input type="Toggle webcam" id="upload_driver_photo" class="dropify" formControlName="op_profile" 
+						[ngClass]="{ 'is-invalid': submitted && p.op_profile.errors}" 
+						(click)="toggleWebcam();" />&nbsp;
+						<input type="upload" id="upload_driver_photo" class="dropify" formControlName="op_profile" 
+						[ngClass]="{ 'is-invalid': submitted && p.op_profile.errors}" 
+						(change)="onFileChange($event)" /> -->
+						<button class="actionBtn" (click)="triggerSnapshot();">Capture Image</button>&nbsp;
+						<button class="actionBtn" (click)="toggleWebcam();">Off/On Webcam</button>
+						<br/>
+						<button class="actionBtn" (click)="showNextWebcam(true);" [disabled]="!multipleWebcamsAvailable">Next Webcam</button>&nbsp;
+    					<input id="cameraSwitchCheckbox" type="checkbox" [(ngModel)]="allowCameraSwitch"><label for="cameraSwitchCheckbox">Allow Camera Switch</label>
+						<br/>
+						<br>
+						<input type="file" id="upload_driver_photo" class="dropify" formControlName="op_profile" [ngClass]="{ 'is-invalid': submitted && p.op_profile.errors}" (change)="onFileChange($event)" />
+						
+						</div>
+						
+
+						<div class="snapshot" *ngIf="webcamImage">
+								<h3>Your Capturing Image </h3>
+						<img [src]="webcamImage.imageAsDataUrl"/>
+						</div>
+
+						<h4 *ngIf="errors.length > 0">Messages:</h4>
+						<ul *ngFor="let error of errors">
+						<li>{{error | json}}</li>
+						</ul>
+					
+
+
+
+					<!-- <input type="file" id="upload_driver_photo" class="dropify" formControlName="op_profile" [ngClass]="{ 'is-invalid': submitted && p.op_profile.errors}" (change)="onFileChange($event)" />
+					<div *ngIf="submitted && p.op_profile.errors" class="invalid-feedback">
+						<div *ngIf="p.op_profile.errors.required">Select Picture</div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-md-12">
+				<label class="custom-control custom-checkbox m-b-0">
+					<input type="checkbox" class="icheckbox_flat-yellow checked" formControlName="agree_terms_condition" [ngClass]="{ 'is-invalid': submitted && p.agree_terms_condition.errors}" (change)="changeTCondition($event.target.checked)" [checked]="is_personal_tc" >
+					
+					<a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" (click)="check_personal_terms_condition()">I have read and agree to the Terms and Conditions</a>
+					<!-- </span> -->
+					<div *ngIf="submitted && p.agree_terms_condition.errors" class="invalid-feedback">
+						<div *ngIf="p.agree_terms_condition.errors.required">Agree to Terms and Conditions</div>
+					</div>
+				</label>
+			</div>
+		</div>
+		<div class="form-group row">
+			<div class="col-sm-12">
+				<!-- (click)="goToNext(personalForm)" -->
+				<button class="btn btn-warning">Next</button>
+			</div>
+		</div>
+	</form>
+</div>
